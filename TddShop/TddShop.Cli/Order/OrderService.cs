@@ -25,7 +25,15 @@ namespace TddShop.Cli.Order
         /// <param name="order"></param>
         public void PlaceOrder(OrderModel order)
         {
-            throw new NotImplementedException();
+            if (order.Items.Count() > 0)
+            {
+                foreach (var item in order.Items)
+                {
+                    _stockRepository.DecreaseItemsInStock(item.Name, item.Quantity);
+                }
+
+                _orderRepository.SaveOrder(order);
+            }
         }
     }
 }

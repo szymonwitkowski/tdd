@@ -21,7 +21,23 @@ namespace TddShop.Cli.Account
         /// <returns></returns>
         public bool IsValid(string password)
         {
-            throw new NotImplementedException();
+            var hasUpper = password.Any(p => Char.IsUpper(p));
+            var hasLower = password.Any(p => Char.IsLower(p));
+            var hasDigit = password.Any(p => Char.IsNumber(p));
+            var hasSpecialCharacter = password.Any(p => !(Char.IsNumber(p) || Char.IsLetter(p)));
+            var hasAtLeast10characters = true;
+
+            if (password.Length < 10)
+            {
+                hasAtLeast10characters = false;
+            }
+
+            if (hasUpper && hasSpecialCharacter && hasLower && hasDigit && hasAtLeast10characters)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
